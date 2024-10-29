@@ -1,142 +1,83 @@
 import itertools as it
 import numpy as np
 
+#The array MF is th array of missing faces of the simplicial complex K
 MF = [[1, 2, 3], [1, 2, 4], [1, 3, 5], [2, 3, 6], [2, 4, 5], [3, 4, 5], [1, 4, 6], [3, 4, 6], [1, 5, 6], [2, 5, 6]]
 
-def diff(arr, dim):
-    lst = []
-    for i in range(6-dim - 1):
+#The following function calculates the differential of the generator of bar construction
+def diff(bar_generator, dim):
+    sum_of_terms = []
+    for i in range(6 - dim - 1):
         p = 1
         term = []
         for j in range(i):
-            term.append(arr[j])
-        mult = arr[i] + arr[i+1]
-        mult.sort()
-        if(len(mult) > 3) or (mult in MF):
+            term.append(bar_generator[j])
+        product = bar_generator[i] + bar_generator[i+1]
+        product.sort()
+        if(len(product) > 3) or (product in MF):
             p = 0
-        term.append(mult)
+        term.append(product)
         
         for j in range(6 - dim - i - 2):
-            term.append(arr[j+i+2])
+            term.append(bar_generator[j+i+2])
         if p:
-            lst.append(term)
-    return lst
+            sum_of_terms.append(term)
+    return sum_of_terms
 
+#The following function defines the cellular chain complex corresponding to the simplicial complex K
 def c_complex():
     perm = it.permutations([1,2,3,4,5,6])
     c = []
     for i in range(4):
         c.append([])
     
-    for sigma in perm:
-        tau = list(sigma)
-        for razb in it.combinations([1,2,3,4,5], 2):
-            t1 = tau[:razb[0]]
-            t2 = tau[razb[0]:razb[1]]
-            t3 = tau[razb[1]:]
-            #print(t1, t2, t3)
-            t1.sort()
-            t2.sort()
-            t3.sort()
-            if(max(len(t1), len(t2), len(t3)) < 4) and (not ((t1 in MF) or (t2 in MF) or (t3 in MF))):
-                if not([t1, t2, t3] in c[3]):
-                    c[3].append([t1,t2,t3])
-        for razb in it.combinations([1,2,3,4,5], 3):
-            t1 = tau[:razb[0]]
-            t2 = tau[razb[0]:razb[1]]
-            t3 = tau[razb[1]:razb[2]]
-            t4 = tau[razb[2]:]
-            t1.sort()
-            t2.sort()
-            t3.sort()
-            t4.sort()
-            if(max(len(t1), len(t2), len(t3), len(t4)) < 4) and (not ((t1 in MF) or (t2 in MF) or (t3 in MF) or (t4 in MF))):
-                if not( [t1, t2, t3, t4] in c[2]):
-                    c[2].append([t1, t2, t3, t4])
-            #i = -1
-            #mx = len(t1)
-            #predmx = len(t1)
-            #j = -1
-             
-            #if(mx <= len(t2)):
-            #    j = i
-            #    predmx = mx
-            #    i = 0
-            #    mx = len(t2)
-            #if(mx <= len(t3)):
-            #    j = i
-            #    predmx = mx
-            #    i = 1
-            #    mx = len(t3)
-            #if(mx <= len(t4)):
-            #    j = i
-            #    predmx = mx
-            #    i = 2
-            #    mx = len(t4)
-            #if(j < 0):
-            #    ind2 = 0
-            #else:
-            #    ind2 = razb[j]
-            #if(i < 0):
-            #    ind1 = 0
-            #else:
-            #    ind1 = razb[i]
-            #if((mx < 3) & (tau[ind1] < tau[ind1+1]) & (tau[ind2] < tau[ind2+1]) ):
-            #    c[2].append([t1,t2,t3,t4])
-        for razb in it.combinations([1,2,3,4,5], 4):
-            t1 = tau[:razb[0]]
-            t2 = tau[razb[0]:razb[1]]
-            t3 = tau[razb[1]:razb[2]]
-            t4 = tau[razb[2]:razb[3]]
-            t5 = tau[razb[3]:]
-            t1.sort()
-            t2.sort()
-            t3.sort()
-            t4.sort()
-            t5.sort()
-            if(max(len(t1), len(t2), len(t3), len(t4), len(t5)) < 4) and (not ((t1 in MF) or (t2 in MF) or (t3 in MF) or (t4 in MF) or (t5 in MF))):
-                if not([t1, t2, t3, t4, t5] in c[1]):
-                    c[1].append([t1, t2, t3, t4, t5])
-            #i = -1
-            #mx = len(t1)
-            #if(mx < len(t2)):
-            #    i = 0
-            #    mx = len(t2)
-            #if(mx < len(t3)):
-            #    i = 1
-            #    mx = len(t3)
-            #if(mx < len(t4)):
-            #    i = 2
-            #    mx = len(t4)
-            #if(mx < len(t5)):
-            #    i = 3
-            #    mx = len(t5)
-            #if(i < 0):
-            #    ind = 0
-            #else:
-            #    ind = razb[i]
-            #if(tau[ind] < tau[ind+1]):
-            #    c[1].append([t1,t2,t3,t4,t5])
-        c[0].append([[tau[0]],[tau[1]],[tau[2]],[tau[3]],[tau[4]],[tau[5]]])
+    for permutation in perm:
+        lst_perm= list(permutation)
+        for partition in it.combinations([1,2,3,4,5], 2):
+            elem1 = lst_perm[:partition[0]]
+            elem2 = lst_perm[partition[0]:partition[1]]
+            elem3 = lst_perm[partition[1]:]
+            elem1.sort()
+            elem2.sort()
+            elem3.sort()
+            if(max(len(elem1), len(elem2), len(elem3)) < 4) and (not ((elem1 in MF) or (elem2 in MF) or (elem3 in MF))):
+                if not([elem1, elem2, elem3] in c[3]):
+                    c[3].append([elem1,elem2,elem3])
+        for partition in it.combinations([1,2,3,4,5], 3):
+            elem1 = lst_perm[:partition[0]]
+            elem2 = lst_perm[partition[0]:partition[1]]
+            elem3 = lst_perm[partition[1]:partition[2]]
+            elem4 = lst_perm[partition[2]:]
+            elem1.sort()
+            elem2.sort()
+            elem3.sort()
+            elem4.sort()
+            if(max(len(elem1), len(elem2), len(elem3), len(elem4)) < 4) and (not ((elem1 in MF) or (elem2 in MF) or (elem3 in MF) or (elem4 in MF))):
+                if not( [elem1, elem2, elem3, elem4] in c[2]):
+                    c[2].append([elem1, elem2, elem3, elem4])
+        for partition in it.combinations([1,2,3,4,5], 4):
+            elem1 = lst_perm[:partition[0]]
+            elem2 = lst_perm[partition[0]:partition[1]]
+            elem3 = lst_perm[partition[1]:partition[2]]
+            elem4 = lst_perm[partition[2]:partition[3]]
+            elem5 = lst_perm[partition[3]:]
+            elem1.sort()
+            elem2.sort()
+            elem3.sort()
+            elem4.sort()
+            elem5.sort()
+            if(max(len(elem1), len(elem2), len(elem3), len(elem4), len(elem5)) < 4) and (not ((elem1 in MF) or (elem2 in MF) or (elem3 in MF) or (elem4 in MF) or (elem5 in MF))):
+                if not([elem1, elem2, elem3, elem4, elem5] in c[1]):
+                    c[1].append([elem1, elem2, elem3, elem4, elem5])
+        c[0].append([[lst_perm[0]],[lst_perm[1]],[lst_perm[2]],[lst_perm[3]],[lst_perm[4]],[lst_perm[5]]])
     return c
 
 def main():
     c = c_complex()
-    dd = diff([[6], [5], [4],[3], [2],[1]], 0)
-    term = [[5, 6], [4],[3], [2],[1]]
-    print(dd)
     
-    dd = diff([[6],[5],[3,4],[1,2]], 2)
-    print(dd)
-    
-    for j in range(4):
-        print(len(c[j]))
-    
-    
-    #a = 1
-    #b = 0
-    #print(a ^ b, a^a, b^b) # так в питоне пишется быстрая сумма по модулю 2
-    
+    #for j in range(4):
+    #    print(len(c[j]))
+
     d01 = []
     for i in range(len(c[0])):
         d01.append([])
@@ -147,11 +88,6 @@ def main():
             else:
                 d01[i].append(0)
     
-    #for i in range(10):
-    #    for j in range(10):
-    #        print(d01[i][j], end=' ')
-    #    print()
-    
     d12 = []
     for i in range(len(c[1])):
         d12.append([])
@@ -159,7 +95,6 @@ def main():
         for j in range(len(c[2])):
             if(c[2][j] in term):
                 d12[i].append(1)
-                #print(c[1][j], term, sep=' ')
             else:
                 d12[i].append(0)
     
@@ -170,57 +105,35 @@ def main():
         for j in range(len(c[3])):
             if(c[3][j] in term):
                 d23[i].append(1)
-                #print(c[1][j], term, sep=' ')
             else:
                 d23[i].append(0)
     
-    f01 = open("d01.txt", "w")
-    #b = Gauss(d01,len(c[0]), len(c[1]))
-    b = []
-    for i in range(len(c[1])):
-        b.append([])
-        for j in range(len(c[0])):
-            b[i].append(d01[j][i])
-    
+    file01 = open("d01.txt", "w")
     for i in range(len(c[1])):
         for j in range(len(c[0])):
-            print(b[i][j], end=' ', file=f01)
-        print(file=f01)
+            print(d01[j][i], end=' ', file=file01)
+        print(file=file01)
     
-    f01.close()
+    file01.close()
     
     
-    f12 = open("d12.txt", "w")
-    #b = Gauss(d12,len(c[1]), len(c[2]))
-    
-    b = []
-    for i in range(len(c[2])):
-        b.append([])
-        for j in range(len(c[1])):
-            b[i].append(d12[j][i])
-    
+    file12 = open("d12.txt", "w")
     for i in range(len(c[2])):
         for j in range(len(c[1])):
-            print(b[i][j], end=' ', file=f12)
-        print(file=f12)
-    f12.close()
+            print(d12[j][i], end=' ', file=file12)
+        print(file=file12)
+    file12.close()
     
     
-    f23 = open("d23.txt", "w")
-    #b = Gauss(d23,len(c[2]), len(c[3]))
-    
-    b = []
-    for i in range(len(c[3])):
-        b.append([])
-        for j in range(len(c[2])):
-            b[i].append(d23[j][i])
-    
+    file23 = open("d23.txt", "w")    
     for i in range(len(c[3])):
         for j in range(len(c[2])):
-            print(b[i][j], end=' ', file=f23)
-        print(file=f23)
+            print(d23[j][i], end=' ', file=file23)
+        print(file=file23)
     
-    f23.close()
+    file23.close()
     
     print(len(c[0]), len(c[1]), len(c[2]), len(c[3])) 
 
+
+main()
