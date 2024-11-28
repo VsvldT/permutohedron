@@ -3,7 +3,7 @@ import numpy as np
 
 
 def Gauss(a, m, n):
-    glav_per = []
+    lead_coef = []
     minim = min(m, n)
     cnt = 0
     buf = 0
@@ -25,14 +25,15 @@ def Gauss(a, m, n):
                     cnt += 1
         if(i+cnt < n): # & (a[i][i+cnt])):
             if(a[i][i+cnt]):
-                glav_per.append(i+cnt)
+                lead_coef.append(i+cnt)
                 for j in range(m):
                     if(i != j):
                         if(a[j][i+cnt]):
                             for k in range(n-i-cnt):
                                 a[j][k+i+cnt] = a[j][k+i+cnt]^a[i][k+i+cnt]
-    print(len(glav_per))
-    return glav_per
+    #print(len(lead_coef))
+    return lead_coef
+
 def main():
     f01 = open("d01.txt", "r")
     len0 = 0
@@ -182,3 +183,4 @@ def main():
         print(file=out)
     out.close()
 
+main()
