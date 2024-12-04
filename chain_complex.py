@@ -109,6 +109,7 @@ def main():
                 d23[i].append(0)
     
     file01 = open("d01.txt", "w")
+    #print(len(c[1]), len(c[0]), sep=' ', file=file01)
     for i in range(len(c[1])):
         for j in range(len(c[0])):
             print(d01[j][i], end=' ', file=file01)
@@ -118,6 +119,7 @@ def main():
     
     
     file12 = open("d12.txt", "w")
+    #print(len(c[2]), len(c[1]), sep=' ', file=file12)
     for i in range(len(c[2])):
         for j in range(len(c[1])):
             print(d12[j][i], end=' ', file=file12)
@@ -126,6 +128,7 @@ def main():
     
     
     file23 = open("d23.txt", "w")    
+    #print(len(c[3]), len(c[2]), sep=' ', file=file23)
     for i in range(len(c[3])):
         for j in range(len(c[2])):
             print(d23[j][i], end=' ', file=file23)
@@ -134,6 +137,4 @@ def main():
     file23.close()
     
     print(len(c[0]), len(c[1]), len(c[2]), len(c[3])) 
-
-
 main()
