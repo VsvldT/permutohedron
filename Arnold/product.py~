@@ -1,7 +1,7 @@
 from alg_tools import *
 
 c = c_complex()
-#Мораль: проверить, почему при умножении получаются элементы не из ядра. 
+
 def cycle_in_H2(cycle, H2):
     Im1 = []
     fin = open("Im1.txt", "r")

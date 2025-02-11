@@ -1,11 +1,11 @@
-from gauss import Gauss
+from alg_tools import *
 
-f01 = open("d01.txt", "r")
+f0 = open("d0.txt", "r")
 len0 = 0
 len1 = 0
 a = []
 b = []
-for line in f01:
+for line in f0:
     row = []
     row_b = []
     for j in line.split():
@@ -15,7 +15,7 @@ for line in f01:
     len0 = len(row)
     a.append(row)
     b.append(row_b)
-f01.close()
+f0.close()
 print(len0, len1, sep=' ')
 glav_per_0 = Gauss(a, len1, len0)
 Ker_0 = []
@@ -48,12 +48,12 @@ for i in range(len(glav_per_0)):
 out.close()
 
 
-f12 = open("d12.txt", "r")
-len1 = 0#1800
-len2 = 0#1080
+f1 = open("d1.txt", "r")
+len1 = 0
+len2 = 0
 a = []
 b = []
-for line in f12:
+for line in f1:
     row = []
     row_b = []
     for j in line.split():
@@ -63,7 +63,7 @@ for line in f12:
     len1 = len(row)
     a.append(row)
     b.append(row_b)
-f12.close()
+f1.close()
 
 print(len1, len2, sep=' ')
 glav_per_1 = Gauss(a, len2, len1)
@@ -99,12 +99,12 @@ for i in range(len(glav_per_1)):
 out.close()
 
 
-f23 = open("d23.txt", "r")
-len3 = 0#90
-len2 = 0#1080
+f2 = open("d2.txt", "r")
+len3 = 0
+len2 = 0
 a = []
 b = []
-for line in f23:
+for line in f2:
     row = []
     row_b = []
     for j in line.split():
@@ -114,7 +114,7 @@ for line in f23:
     len2 = len(row)
     a.append(row)
     b.append(row_b)
-f23.close()
+f2.close()
 print(len2, len3, sep=' ')
 glav_per_2 = Gauss(a, len3, len2)
 Ker_2 = []

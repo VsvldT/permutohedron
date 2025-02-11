@@ -1,4 +1,4 @@
-from alg_tools import *
+from alg_tools import c_complex
 
 c = c_complex()
 
