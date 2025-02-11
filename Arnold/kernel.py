@@ -1,4 +1,4 @@
-from gauss import Gauss
+from alg_tools import *
 
 f0 = open("d0.txt", "r")
 len0 = 0

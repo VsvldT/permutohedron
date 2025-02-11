@@ -1,12 +1,7 @@
 import numpy as np
 import itertools as it
-from gauss import Gauss
+from alg_tools import *
 
-def FastGauss(a, m, n, glav_per):
-    for i in range(len(glav_per)):
-        if a[m-1][glav_per[i]]:
-            for j in range(n-glav_per[i]):
-                a[m-1][j+glav_per[i]] = a[m-1][j+glav_per[i]] ^ a[i][j+glav_per[i]]
 
 fin = open("Im0.txt", "r")
 a = []

@@ -145,42 +145,42 @@ for i in range(b_1):
     print(file=fout)
 fout.close()
 
-for s in range(len(nevyr)):
-    for t in range(len(nevyr)):
-        i = nevyr[s]
-        j = nevyr[t]
-        res_ij = []
-        nenul_1 = []
-        nenul_2 = []
-        res_koord = []
-        for k in range(len1):
-            if(a[i][k]):
-                nenul_1.append(k)
-            if(a[j][k]):
-                nenul_2.append(k)
-        for k in nenul_1:
-            for l in nenul_2:
-                r = mult(c[1][k], c[1][l])
-                if r and q:
-                    q = 0
-                    print(c[1][k], "U", c[1][l], "=", r, sep=' ')
-                if r:
-                    if r in res_ij:
-                        res_ij.remove(r)
-                    else:
-                        res_ij.append(r)
-        if(len(res_ij) > 0):
-            #u_i --- образующие H^1, v_j --- образующие H^2
-            #print("u_", i, " U ", "u_", j, " = ", sep='', end='')
-            if not i in nevyr:
-                nevyr.append(i)
-            for k in range(b_2):
-                if(H2[k] in res_ij):
-                    if tablica[i][j]:
-                        tablica[i][j] = str(tablica[i][j]) + '+' + str(k+1)
-                    else:
-                        tablica[i][j] = str(k+1)
-    print("Успех", i, sep=' ')
+#for s in range(len(nevyr)):
+#    for t in range(len(nevyr)):
+#        i = nevyr[s]
+#        j = nevyr[t]
+#        res_ij = []
+#        nenul_1 = []
+#        nenul_2 = []
+#        res_koord = []
+#        for k in range(len1):
+#            if(a[i][k]):
+#                nenul_1.append(k)
+#            if(a[j][k]):
+#                nenul_2.append(k)
+#        for k in nenul_1:
+#            for l in nenul_2:
+#                r = mult(c[1][k], c[1][l])
+#                if r and q:
+#                    q = 0
+#                    print(c[1][k], "U", c[1][l], "=", r, sep=' ')
+#                if r:
+#                    if r in res_ij:
+#                        res_ij.remove(r)
+#                    else:
+#                        res_ij.append(r)
+#        if(len(res_ij) > 0):
+#            #u_i --- образующие H^1, v_j --- образующие H^2
+#            #print("u_", i, " U ", "u_", j, " = ", sep='', end='')
+#            if not i in nevyr:
+#                nevyr.append(i)
+#            for k in range(b_2):
+#                if(H2[k] in res_ij):
+#                    if tablica[i][j]:
+#                        tablica[i][j] = str(tablica[i][j]) + '+' + str(k+1)
+#                    else:
+#                        tablica[i][j] = str(k+1)
+#    print("Успех", i, sep=' ')
 fout = open("tabli4ka.txt", "w")
 for i in range(len(nevyr)):
     for j in range(len(nevyr)):
