@@ -2,7 +2,7 @@ import itertools as it
 import numpy as np
 from simplicial_complex import *
 
-#The following function calculates the differential of the generator of bar construction
+#The following function calculates the differential of the generator of bar construction.
 def diff(bar_generator, dim):
     sum_of_terms = []
     for i in range(6 - dim - 1):
@@ -20,7 +20,7 @@ def diff(bar_generator, dim):
             sum_of_terms.append(term)
     return sum_of_terms
 
-#The following function defines the cellular chain complex corresponding to the simplicial complex K
+#The following function defines the cellular chain complex corresponding to the simplicial complex K.
 def c_complex():
     perm = it.permutations([1,2,3,4,5,6])
     c = []
@@ -81,6 +81,7 @@ def c_complex():
         c[0].append([[lst_perm[0]],[lst_perm[1]],[lst_perm[2]],[lst_perm[3]],[lst_perm[4]],[lst_perm[5]]])
     return c
 
+#The following function is the Gauss method. It returns the list of indexes of leading coefficients.
 def Gauss(a, m, n):
     lead_coef = []
     minim = min(m, n)
@@ -109,9 +110,10 @@ def Gauss(a, m, n):
                     if(i != j):
                         if(a[j][i+cnt]):
                             for k in range(n-i-cnt):
-                                a[j][k+i+cnt] = a[j][k+i+cnt]^a[i][k+i+cnt]
+                                a[j][k+i+cnt] = a[j][k+i+cnt] ^ a[i][k+i+cnt]
     return lead_coef
 
+#The following function is a slight modification of Gauss method that is used to check the linear independency a little bit faster.
 def FastGauss(a, m, n, glav_per):
     for i in range(len(glav_per)):
         if a[m-1][glav_per[i]]:
@@ -122,6 +124,7 @@ def FastGauss(a, m, n, glav_per):
 def sublist(sub, lst):
     return str(sub).strip('[]') in str(lst).strip('[]')
 
+#The follofing function computes the dualizing of SU diagonal by the rule, described in the comments below.
 # 12 x 1|2 = 12
 # 2|1 x 12 = 12
 # 1|2|3 x 123 = 123
@@ -196,7 +199,7 @@ def mult(a, b):
                 return 0
 
         if (len(a[j]) == 1) and (len(a[j+1]) == 2) and (len(b[k]) == 1) and (len(b[k+1]) == 2):
-            if (a[j][0] == b[k+1][0]) and (a[j+1][0] == b[k+1][1]) and (a[j+1][1] == b[k+1][0]) and (a[j][0] < a[j+1][0]):
+            if (a[j][0] == b[k+1][0]) and (a[j+1][0] == b[k+1][1]) and (a[j+1][1] == b[k][0]) and (a[j][0] < a[j+1][0]):
                 temp = [a[j][0], a[j+1][0], a[j+1][1]]
                 temp.sort()
                 res.append(temp)
@@ -219,7 +222,7 @@ def mult(a, b):
                 return 0
         
         else:
-            if (j+2 >= n) or (k+2 >= m):
+            if (j+2 >= n) and (k+2 >= m):
                 return 0
         
         if (len(a[j]) == 1) and (len(a[j+1]) == 1) and (len(a[j+2]) == 1) and (len(b[k]) == 3):
