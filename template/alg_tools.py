@@ -2,6 +2,8 @@ import itertools as it
 import numpy as np
 from simplicial_complex import *
 
+#lalala
+
 #The following function calculates the differential of the generator of bar construction
 def diff(bar_generator, dim):
     sum_of_terms = []
