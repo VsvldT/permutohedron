@@ -1,5 +1,6 @@
 This project was made to calculate the cohomology ring of diagonal arrangement complements via bar-construcion (in real case) or its modification (in complex case).
 
+
 The order of executing the programs is the following:
 1) chain_complex.py <- creates the chain complex and saves matrices of <i>-th differential in the file d<i>.txt;
 2) kernel.py <- calculates kernels and images of differentials using Gauss method and saves <i>-th kernel and image in the files Ker<i>.txt and Im<i>.txt correspondingly;
